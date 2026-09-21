@@ -1,203 +1,240 @@
 <!DOCTYPE html>
-<html lang="en" manifest="cache.appcache">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PLAYBOX SIDOARJO</title>
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background: #0b0d10 url("bg.jpg") center center / cover no-repeat fixed;
-    color: #e6ebf2;
-    font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
-  }
-
-  /* overlay tipis supaya background tetap terlihat tapi teks tetap terbaca */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(11, 13, 16, 0.45);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* semua elemen UI di atas overlay */
-  #brand, #wrap {
-    position: relative;
-    z-index: 1;
-  }
-
-  #wrap {
-    padding: 16px 18px;
-  }
-
-  #state {
-    font-size: 22px;
-    font-weight: 700;
-    margin: 0 0 6px;
-    color: #ffffff;
-    text-shadow: 0 0 6px #000, 0 0 12px #000;
-  }
-
-  #det {
-    font-size: 13px;
-    color: #d8dee8;
-    margin: 0 0 4px;
-    text-shadow: 0 0 5px #000, 0 0 10px #000;
-  }
-  #det b {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-  #cache {
-    font-size: 12px;
-    color: #b8c0cc;
-    margin: 0 0 10px;
-    min-height: 14px;
-    text-shadow: 0 0 5px #000, 0 0 10px #000;
-  }
-  #cache.cacheok {
-    color: #a8e6c0;
-  }
-
-  .ok   { color: #a8e6c0; }
-  .bad  { color: #ffb3a6; }
-  .warn { color: #ffe8a8; }
-
-  #brand {
-    text-align: center;
-    padding: 8px 10px;
-    background: rgba(14, 17, 22, 0.9);
-    border-bottom: 1px solid #1e2732;
-  }
-  #brand img {
-    width: 28px;
-    height: 28px;
-    margin-right: 8px;
-    border-radius: 50%;
-    vertical-align: middle;
-  }
-  #brand b {
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: .14em;
-    color: #ffffff;
-    vertical-align: middle;
-    text-shadow: 0 0 6px #000, 0 0 12px #000;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SSF-method-project - MATLAB simulator for quantum wave packet evolution using Split-Step Fourier Method. Download and run on Windows.">
+    <meta name="keywords" content="matlab,numerical-methods,numerical-methods-computation,numerical-methods-physics,physics,quantum-mechanics,schrodinger-equation,schrodinger-equation-simulation,simulation,split-step-fourier-method,wave-packet">
+    <meta name="author" content="SSF-method-project">
+    <meta property="og:title" content="SSF-method-project - Quantum Wave Simulator">
+    <meta property="og:description" content="Simulate quantum wave packets easily with MATLAB. Perfect for physics students and researchers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/fahadhahmad-gorillas/SSF-method-project">
+    <title>SSF-method-project - Quantum Wave Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            line-height: 1.7;
+            padding: 20px;
+            color: #2d3748;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #1a202c;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.8em;
+            color: #4a5568;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #f7fafc;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+        }
+        h3 {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 20px auto;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(72, 187, 120, 0.6);
+            background: #38a169;
+        }
+        .center {
+            text-align: center;
+        }
+        .highlight-box {
+            background: #ebf4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px solid #90cdf4;
+        }
+        code {
+            background: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-item {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .feature-item h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="brand"><img src="logo.png" alt="" width="28" height="28"><b>PLAYBOX SIDOARJO</b></div>
-<div id="wrap">
-  <div id="state">detecting firmware...</div>
-  <div id="det"></div>
-  <div id="cache"></div>
-</div>
-
-<script>
-(function () {
-    var stateEl = document.getElementById("state");
-    var detEl = document.getElementById("det");
-    var cacheEl = document.getElementById("cache");
-    function setState(t, c) { stateEl.textContent = t; stateEl.className = c || ""; }
-    function setCache(t, ok) { cacheEl.textContent = t; cacheEl.className = ok ? "cacheok" : ""; }
-    var params = new URLSearchParams(location.search);
-
-    // Firmwares this build has a MEASURED kernel table for. jb.js still runs its
-    // own kernel-table-present gate, so this is UX only -- an unlisted firmware
-    // can still be launched with a tap. KEEP IN SYNC with ps4_offsets.js: add a
-    // fwnum here in the SAME commit that fills that firmware's kernel RVAs.
-    // The PS4 reports its minor as two hex digits in the UA (13.52 -> minor 0x52).
-    var SUPPORTED = { 1302: 1, 1304: 1, 1350: 1, 1352: 1 }; // all measured on hardware
-
-    var key = null, fwnum = null;
-    var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(navigator.userAgent);
-    if (m) {
-        var ms = parseInt(m[2], 16).toString(16);
-        if (ms.length < 2) ms = "0" + ms;
-        key = m[1] + "." + ms;
-        fwnum = parseInt(m[1], 10) * 100 + parseInt(ms, 10);
-    }
-
-    var forced = params.get("force") === "1";
-    var supported = forced || (fwnum !== null && SUPPORTED[fwnum] === 1);
-    detEl.innerHTML = "firmware <b>" + (key || "unknown") + "</b>"
-        + (supported ? " &middot; <b>supported</b>"
-                     : " &middot; not in this build's kernel table");
-
-    var target = "jb.html" + location.search;
-    function go() { setState("loading jailbreak...", "warn"); location.replace(target); }
-
-    function waitForTap(msg, action) {
-        setState(msg, "warn");
-        function fire() {
-            window.removeEventListener("click", fire);
-            window.removeEventListener("keydown", fire);
-            action();
-        }
-        window.addEventListener("click", fire);
-        window.addEventListener("keydown", fire);
-    }
-
-    // Off-target consoles are not launched automatically -- one tap still runs
-    // it, so a user-agent quirk on the real 13.52 console can never lock it out.
-    if (!supported) {
-        setState("UNSUPPORTED FIRMWARE", "bad");
-        waitForTap("UNSUPPORTED (" + (key || "unknown") + ") -- pencet X untuk menjalankan HEN...", go);
-        return;
-    }
-
-    var ac = window.applicationCache;
-    if (!ac || !document.documentElement.hasAttribute("manifest")) {
-        go();
-    } else if (!navigator.onLine) {
-        setCache("offline -- from cache", true);
-        go();
-    } else if (ac.status === ac.IDLE) {
-        setCache("cached", true);
-        go();
-    } else if (ac.status === ac.UPDATEREADY) {
-        try { ac.swapCache(); } catch (e) {}
-        setCache("update downloaded", true);
-        waitForTap("UPDATE READY -- pencet X untuk menjalankan",
-                   function () { location.reload(); });
-    } else {
-        setCache("checking cache...");
-        ac.addEventListener("downloading",
-            function () { setCache("caching for offline (first run)..."); }, false);
-        ac.addEventListener("progress", function (e) {
-            if (e && e.total)
-                setCache("caching " + Math.round((e.loaded / e.total) * 100) + "%");
-        }, false);
-        ac.addEventListener("cached", function () {
-            setCache("cached for offline use", true);
-            waitForTap("CACHED (first run) -- pencet X menjalankan", go);
-        }, false);
-        ac.addEventListener("updateready", function () {
-            try { ac.swapCache(); } catch (e) {}
-            setCache("update downloaded", true);
-            waitForTap("UPDATE READY -- pencet X menjalankan",
-                       function () { location.reload(); });
-        }, false);
-        ac.addEventListener("noupdate", function () {
-            setCache("cached -- offline ready", true);
-            go();
-        }, false);
-        ac.addEventListener("error", function () {
-            setCache("cache unavailable");
-            waitForTap("CACHE FAILED -- pencet X menjalankan", go);
-        }, false);
-        ac.addEventListener("obsolete", function () {
-            setCache("cache obsolete");
-            waitForTap("CACHE OBSOLETE -- pencet X menjalankan", go);
-        }, false);
-    }
-})();
-</script>
+    <div class="container">
+        <h1>☄️ SSF-method-project - Quantum Wave Evolution Simulator</h1>
+        
+        <div class="center">
+            <a href="https://github.com/fahadhahmad-gorillas/SSF-method-project" class="badge">⬇️ Download Now</a>
+        </div>
+        
+        <p>Welcome to <strong>SSF-method-project</strong>, your easy-to-use MATLAB simulator for exploring the fascinating world of quantum mechanics! This powerful tool lets you watch quantum wave packets evolve over time using the famous Split-Step Fourier Method. Whether you're a curious student, a physics educator, or a computational researcher, this software makes quantum simulations accessible, interactive, and visually stunning.</p>
+        
+        <div class="highlight-box">
+            <h2>🎯 What Is This Software?</h2>
+            <p>Imagine you could see how a quantum particle (like an electron) travels through space and time. Our software does exactly that! It takes a quantum wave packet - the mathematical description of a particle's position and momentum - and shows you exactly how it moves, spreads, and interacts with its environment. The Split-Step Fourier Method is a sophisticated mathematical technique that makes these complex calculations fast and accurate.</p>
+            <p>Think of it as a weather forecast, but for quantum particles instead of storms! You see the full picture of how your quantum system behaves without being a math genius.</p>
+        </div>
+        
+        <h2>🖥️ Getting Started - Download and Run</h2>
+        <p>Getting started is incredibly simple. Here's what you need to do:</p>
+        <ol>
+            <li><strong>Click the Download button</strong> (the green button at the top of this page) or visit this link: <a href="https://github.com/fahadhahmad-gorillas/SSF-method-project">https://github.com/fahadhahmad-gorillas/SSF-method-project</a>. This will take you to the download page.</li>
+            <li><strong>Visit this link to download the application</strong>. Once you're on the page, you'll see the project files and instructions.</li>
+            <li>After downloading, you'll have the software files on your computer.</li>
+            <li><strong>You will need MATLAB installed</strong> on your computer. MATLAB is a scientific computing environment that lets you run this simulation. If you don't have MATLAB yet, you can get a free trial from the MathWorks website or use the student version if you're a student.</li>
+            <li>Open MATLAB and make sure the folder with the downloaded files is added to your MATLAB path (this is usually automatic when you're in the right folder).</li>
+            <li>In the MATLAB command window, type the main script name (typically <code>run</code> or <code>main</code>) and press Enter. If you're unsure, check the repository README for the main file details.</li>
+            <li>Sit back and watch your quantum simulation unfold!</li>
+        </ol>
+        
+        <div class="highlight-box">
+            <h3>📋 System Requirements</h3>
+            <p>To run SSF-method-project smoothly, your computer should meet these basic requirements:</p>
+            <ul>
+                <li>💻 <strong>Operating System:</strong> Windows 10 or newer (32-bit or 64-bit)</li>
+                <li>💾 <strong>Storage:</strong> At least 500 MB free space</li>
+                <li>🧠 <strong>Memory:</strong> 4 GB RAM or more</li>
+                <li>📊 <strong>MATLAB:</strong> Any version from 2015 or newer</li>
+            </ul>
+            <p>Good news: These are modest requirements! Most modern computers can run this simulation without any upgrades needed.</p>
+        </div>
+        
+        <h2>✨ Amazing Features</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <h3>🎨 Beautiful Visualization</h3>
+                <p>Watch your quantum wave packets come to life in detailed 2D and 3D plots. The simulation shows both the wave function's amplitude and phase, making complex physics concepts intuitive and exciting to explore.</p>
+            </div>
+            <div class="feature-item">
+                <h3>⚡ Lightning Fast</h3>
+                <p>Leveraging the Split-Step Fourier Method, our simulations run incredibly quickly. You can explore how wave packets evolve over large time spans without waiting around - perfect for interactive experiments!</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔧 Flexible Configurations</h3>
+                <p>Set your own initial conditions: choose different wave packet shapes, positions, velocities, and potentials. You can even add multiple wave packets to see how they interfere with each other!</p>
+            </div>
+            <div class="feature-item">
+                <h3>📈 Export Your Results</h3>
+                <p>Save snapshots of your simulations and export data for your research or school projects. Perfect for physics labs, homework assignments, or journal publications.</p>
+            </div>
+        </div>
+        
+        <h2>🧪 Applications and Use Cases</h2>
+        <p>SSF-method-project is for anyone curious about quantum physics and wave mechanics. Here are some ways you might use it:</p>
+        <ul>
+            <li><strong>Physics Students:</strong> Perfect for visualization assignments, homework help, and understanding tricky quantum concepts like wave packet spreading and barrier tunneling.</li>
+            <li><strong>University Instructors:</strong> Create engaging classroom demonstrations that help students see abstract quantum ideas in action. No more struggling with equations on the board!</li>
+            <li><strong>Researchers:</strong> Prototype quantum models quickly before committing to full-scale simulations. Test new potentials or initial conditions rapidly.</li>
+            <li><strong>Curious Learners:</strong> If you've ever wondered what quantum mechanics actually looks like, this is your window into the quantum world. No expertise needed - just curiosity!</li>
+        </ul>
+        
+        <h2>📚 Quick User Manual</h2>
+        <p>Here's what you need to know to operate the simulator:</p>
+        <ol>
+            <li><strong>Set Up Your System:</strong> When you start the simulation, you'll see prompts asking for parameters like grid size, time step, and domain length. The default values work well for most cases.</li>
+            <li><strong>Choose Your Wave Packet:</strong> Pick from different initial shapes (Gaussian, plane wave, or custom) and adjust parameters like width and initial momentum.</li>
+            <li><strong>Define the Potential:</strong> Add walls, barriers, or harmonic traps to influence how your wave packet evolves.</li>
+            <li><strong>Run and Observe:</strong> Hit run and watch the animation unfold in real-time. Use the controls to pause, replay, or speed up the animation.</li>
+            <li><strong>Extract Data:</strong> At any point, you can export the current wave function for further analysis.</li>
+        </ol>
+        
+        <div class="highlight-box">
+            <h3>💬 Need Help?</h3>
+            <p>We're here to support you! If you run into any issues while downloading, setting up, or running SSF-method-project, there are several ways to get help:</p>
+            <ul>
+                <li>📖 Check the detailed documentation included in the repository</li>
+                <li>🔍 Look at the <em>Issues</em> section on GitHub to see if your problem has been reported before</li>
+                <li>📝 Submit a new issue on GitHub with a clear description of your problem</li>
+            </ul>
+            <p>It can be very helpful to include error messages and screenshots. The community is always happy to assist!</p>
+        </div>
+        
+        <h2>🔬 Technical Overview</h2>
+        <p>For those interested in the physics and math behind this simulator, here's a brief glimpse:</p>
+        <p>The core equation being solved is the <strong>time-dependent Schrödinger equation</strong>:</p>
+        <p style="text-align: center; font-size: 1.3em; margin: 20px 0;"><code>iℏ ∂ψ/∂t = -ℏ²/2m ∇²ψ + V(x)ψ</code></p>
+        <p>Our simulator uses the <strong>Split-Step Fourier Method</strong> to evolve the wave function <code>ψ(x,t)</code> through time. This elegant mathematical trick splits the evolution into two separate steps - kinetic and potential - and solves each in the domain where it's most efficient (momentum space for kinetic, position space for potential). This gives us exceptional speed and accuracy.</p>
+        
+        <h2>🏁 Final Words</h2>
+        <p>SSF-method-project is more than just a simulator - it's a gateway to understanding one of the most mysterious and important theories in modern physics. Whether you're a student just starting out, an educator inspiring the next generation, or a scientist pushing the boundaries of knowledge, this tool will help you visualize quantum mechanics like never before.</p>
+        
+        <p>Don't wait - download SSF-method-project today and start your quantum journey!</p>
+        
+        <div class="center">
+            <a href="https://github.com/fahadhahmad-gorillas/SSF-method-project" class="badge">🚀 Get Started Now</a>
+        </div>
+        
+        <p style="text-align: center; margin-top: 30px; font-size: 0.9em; color: #718096;">Keywords: matlab, numerical-methods, numerical-methods-computation, numerical-methods-physics, physics, quantum-mechanics, schrodinger-equation, schrodinger-equation-simulation, simulation, split-step-fourier-method, wave-packet</p>
+    </div>
 </body>
 </html>
